@@ -12,9 +12,10 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.search.ScoreDoc;
 
 public class Main {
-
+	public Vector<Book> database;
 	/** Creates a new instance of Main */
 	public Main() {
+		database = new Vector<Book>();
 	}
 
 	/**
