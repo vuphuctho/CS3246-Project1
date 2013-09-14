@@ -24,13 +24,19 @@ public class Main {
 	public static void main(String[] args) {
 
 		try {
+			// read data from html files
+			
+			
 			// build a lucene index
 			System.out.println("rebuildIndexes");
 			Indexer indexer = new Indexer();
 			indexer.rebuildIndexes();
 			System.out.println("rebuildIndexes done");
 
-			// perform search on "Dame museum"
+			// read query from txt files
+			
+			// loop
+			// perform search
 			// and retrieve the result
 			System.out.println("performSearch");
 			SearchEngine instance = new SearchEngine();
@@ -53,6 +59,7 @@ public class Main {
 			System.out.println("Exception caught.\n");
 			System.out.println(e.toString());
 		}
+		// receive relevances feedback
 	}
 
 }

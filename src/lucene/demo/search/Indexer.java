@@ -61,6 +61,7 @@ public class Indexer {
         System.out.println("Indexing hotel: " + hotel);
         indexWriter = getIndexWriter(false);
         Document doc = new Document();
+        // need to modify format from hotel's to book's
         doc.add(new Field("id", hotel.getId(), Field.Store.YES, Field.Index.NO));
         doc.add(new Field("name", hotel.getName(), Field.Store.YES, Field.Index.ANALYZED));
         doc.add(new Field("city", hotel.getCity(), Field.Store.YES, Field.Index.NOT_ANALYZED));
