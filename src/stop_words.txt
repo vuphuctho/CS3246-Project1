@@ -2,6 +2,8 @@ pre
 html
 <DOC>
 </DOC>
+doc
+docno
 a
 a's
 able

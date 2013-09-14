@@ -15,9 +15,11 @@ import org.apache.lucene.search.ScoreDoc;
 
 public class Main {
 	public Vector<Book> database;
+	public Vector<String> queries;
 	/** Creates a new instance of Main */
 	public Main() {
 		database = new Vector<Book>();
+		queries = new Vector<String>();
 	}
 
 	/**
@@ -25,23 +27,26 @@ public class Main {
 	 *            the command line arguments
 	 */
 	public static void main(String[] args) {
-
+		Main main = new Main();
 		try {
 			// read data from html files
-			
+			InputReader ir = new InputReader();
+			main.queries = ir.readQuery();
 			
 			// build a lucene index
-			System.out.println("rebuildIndexes");
+			
+			/*System.out.println("rebuildIndexes");
 			Indexer indexer = new Indexer();
 			indexer.rebuildIndexes();
-			System.out.println("rebuildIndexes done");
+			System.out.println("rebuildIndexes done");*/
 
 			// read query from txt files
 			
 			// loop
 			// perform search
 			// and retrieve the result
-			System.out.println("performSearch");
+			
+			/*System.out.println("performSearch");
 			SearchEngine instance = new SearchEngine();
 			ScoreDoc[] hits = instance.performSearch("Dame museum", 10);
 
@@ -57,7 +62,7 @@ public class Main {
 						+ " (" + hit.score + ")");
 
 			}
-			System.out.println("performSearch done");
+			System.out.println("performSearch done");*/
 		} catch (Exception e) {
 			System.out.println("Exception caught.\n");
 			System.out.println(e.toString());

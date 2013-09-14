@@ -31,24 +31,30 @@ public class InputReader {
 	        	} catch (FileNotFoundException e) {
 	        	} catch (IOException e) {	
 	        	}
-	        	//System.out.println(fileEntry.getName());
 	        }
 		}		
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void readQuery() {	
+	public Vector<String> readQuery() {	
+		Vector<String> queries = new Vector<String>();
 		if (query.isFile()==true ) {
 			try {
 				FileInputStream fileinput = new FileInputStream(query);
         		BufferedInputStream mybuffer = new BufferedInputStream(fileinput);
         		DataInputStream datainput = new DataInputStream(mybuffer);
         		while (datainput.available()!= 0) {
-        			System.out.println(datainput.readLine());
+        			String line = datainput.readLine();
+        			line = SearchEngine.backendIndexing(line);
+        			if (line!= null || line.compareTo("")!=0) {
+        				queries.add(line);
+        			}
+        			System.out.println(line);
         		}
 			} catch (IOException e) {
 			}
-		} else {}
+		} 
+		return queries;
 	}
 	
 	public void listFilesForFolder(final File folder) {
