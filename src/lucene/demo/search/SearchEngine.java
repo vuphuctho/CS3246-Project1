@@ -37,8 +37,8 @@ public class SearchEngine {
 	public ScoreDoc[] performSearch(String queryString, int noOfTopDocs)
 			throws Exception {
 
-		Query query = new QueryParser(Version.LUCENE_CURRENT, "content",
-				new StandardAnalyzer(Version.LUCENE_CURRENT))
+		Query query = new QueryParser(Version.LUCENE_36, "content",
+				new StandardAnalyzer(Version.LUCENE_36))
 				.parse(queryString);
 
 		TopDocs topDocs = searcher.search(query, noOfTopDocs);
