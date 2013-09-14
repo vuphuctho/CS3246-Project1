@@ -18,22 +18,28 @@ public class SearchEngine {
 	private static HashSet<String> stop_word_set = new HashSet<String>();
 	
 	private static void loadStopWordList() throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader("stop_words.txt"));
+		BufferedReader reader = new BufferedReader(new FileReader("src\\stop_words.txt"));
 		String line = null;
 		while ((line = reader.readLine()) != null) {
 			stop_word_set.add(line);
+			//System.out.println(line);
 		}
 		reader.close();
 	}
 	
+	public static String trimNumber(String input) {
+		return input;
+	}
+	
 	@SuppressWarnings("unused")
 	public static String backendIndexing(String input) {
+		input = input.toLowerCase();
 		//loading the stop word list
 		try {
 			loadStopWordList();
 		} catch (IOException e1) {}
-		
-        TokenStream tokenStream = new StandardTokenizer(
+
+		TokenStream tokenStream = new StandardTokenizer(
                 Version.LUCENE_36, new StringReader(input));
         tokenStream = new StopFilter(Version.LUCENE_36, tokenStream, stop_word_set);
         tokenStream = new PorterStemFilter(tokenStream);
@@ -56,4 +62,15 @@ public class SearchEngine {
 	}
 	
 	//To be continued 
+	public static void main (String[] args) {
+		try {
+			SearchEngine.loadStopWordList();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String input = "The In I am terminated";
+		System.out.print(SearchEngine.backendIndexing(input));
+		
+	}
 }
