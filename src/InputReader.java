@@ -5,8 +5,8 @@ import java.net.*;
 import java.util.*;
 
 public class InputReader {
-	final static File data = new File("C:\\Users\\Vu Phuc Tho\\Dropbox\\download\\data_project1");
-	final static File query = new File("C:\\Users\\Vu Phuc Tho\\Dropbox\\download\\CS3246Project1_query.txt");
+	final static File data = new File("data\\data_project1");
+	final static File query = new File("data\\CS3246Project1_query.txt");
 	//final static URL database = new URL("https://www.dropbox.com/sh/asngphsih4x5xrm/nebZcre8rF");
 	
 	public InputReader() {		
