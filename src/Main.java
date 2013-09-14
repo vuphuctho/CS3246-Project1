@@ -5,7 +5,9 @@
  *
  */
 
-package lucene.demo;
+
+
+import java.util.Vector;
 
 import lucene.demo.search.*;
 import org.apache.lucene.document.Document;

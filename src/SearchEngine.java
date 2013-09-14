@@ -27,7 +27,7 @@ public class SearchEngine {
 	}
 	
 	@SuppressWarnings("unused")
-	private static String BackendIndexing(String input) {
+	public static String backendIndexing(String input) {
 		//loading the stop word list
 		try {
 			loadStopWordList();

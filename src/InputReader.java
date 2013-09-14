@@ -1,4 +1,4 @@
-package lucene.demo;
+
 
 import java.io.*;
 import java.net.*;
@@ -7,6 +7,7 @@ import java.util.*;
 public class InputReader {
 	final static File data = new File("C:\\Users\\Vu Phuc Tho\\Dropbox\\download\\data_project1");
 	final static File query = new File("C:\\Users\\Vu Phuc Tho\\Dropbox\\download\\CS3246Project1_query.txt");
+	//final static URL database = new URL("https://www.dropbox.com/sh/asngphsih4x5xrm/nebZcre8rF");
 	
 	public InputReader() {		
 	}
@@ -22,7 +23,7 @@ public class InputReader {
 	        		BufferedInputStream mybuffer = new BufferedInputStream(fileinput);
 	        		DataInputStream datainput = new DataInputStream(mybuffer);
 	        		while (datainput.available() != 0) {
-	        			System.out.println(datainput.readLine());
+	        			System.out.println(SearchEngine.backendIndexing(datainput.readLine()));	
 	        		}
 	        		fileinput.close();
 	        		mybuffer.close();
@@ -62,7 +63,10 @@ public class InputReader {
 	
 	public static void main(String[] args) throws IOException {
 		InputReader ir = new InputReader();
-		//ir.readDatabase();
-		ir.readQuery();
+		ir.readDatabase();
+		//ir.readQuery();
+		
+		// testing
+		//String output = SearchEngine.backendIndexing(ir.readDatabase());
 	}
 }
