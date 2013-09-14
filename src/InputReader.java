@@ -13,7 +13,8 @@ public class InputReader {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void readDatabase() {
+	public Vector<Book> readDatabase() {
+		Vector<Book> database = new Vector<Book>();
 		for (final File fileEntry :data.listFiles()) {
 			if (fileEntry.isDirectory()) {
 	            listFilesForFolder(fileEntry);
@@ -33,6 +34,7 @@ public class InputReader {
 	        	}
 	        }
 		}		
+		return database;
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -43,18 +45,38 @@ public class InputReader {
 				FileInputStream fileinput = new FileInputStream(query);
         		BufferedInputStream mybuffer = new BufferedInputStream(fileinput);
         		DataInputStream datainput = new DataInputStream(mybuffer);
+        		int Q = 0; // number of queries
         		while (datainput.available()!= 0) {
         			String line = datainput.readLine();
         			line = SearchEngine.backendIndexing(line);
-        			if (line!= null || line.compareTo("")!=0) {
-        				queries.add(line);
+        			line = line.replaceAll("(?m)^[ \t]*\r?\n", "");
+        			
+        			// recognize query syntax and blank line
+        			if (line.length()<=3 && line.length() > 1) {
+        				Q++;
+        				line = "";
         			}
-        			System.out.println(line);
+        			// save line to queries
+        			if (!line.equals("")) {
+        				if (Q > queries.size() ) {
+        					queries.add(line);
+        				} else {
+        					queries.set(Q-1, queries.get(Q-1) + " " + line);
+        				}
+        				System.out.printf("%s %d \n", line, Q);
+        			}
         		}
 			} catch (IOException e) {
 			}
 		} 
 		return queries;
+	}
+	
+	private String removeQuerySyntax(String line) {
+		if (line.length()<=3) {
+			line = "";
+		}
+		return line;
 	}
 	
 	public void listFilesForFolder(final File folder) {
@@ -69,8 +91,8 @@ public class InputReader {
 	
 	public static void main(String[] args) throws IOException {
 		InputReader ir = new InputReader();
-		ir.readDatabase();
-		//ir.readQuery();
+		//ir.readDatabase();
+		ir.readQuery();
 		
 		// testing
 		//String output = SearchEngine.backendIndexing(ir.readDatabase());

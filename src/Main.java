@@ -31,7 +31,7 @@ public class Main {
 		try {
 			// read data from html files
 			InputReader ir = new InputReader();
-			main.database = ir.readDatabase();
+			//main.database = ir.readDatabase();
 			main.queries = ir.readQuery();
 			
 			// build a lucene index
