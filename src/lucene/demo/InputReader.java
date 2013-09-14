@@ -7,15 +7,26 @@ import java.util.*;
 public class InputReader {
 	final static File folder = new File("C:\\Users\\Vu Phuc Tho\\Dropbox\\download\\data_project1");
 	
-	public InputReader() throws FileNotFoundException {
+	@SuppressWarnings("deprecation")
+	public InputReader() throws IOException {
 		for (final File fileEntry :folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
 	            listFilesForFolder(fileEntry);
 	        } else {
 	        	try {
-	        		BufferedReader in = new BufferedReader(new FileReader(fileEntry.getPath())); 
-	        	} catch (FileNotFoundException e) {}
-	        	System.out.println(fileEntry.getName());
+	        		FileInputStream fileinput = new FileInputStream(fileEntry);
+	        		BufferedInputStream mybuffer = new BufferedInputStream(fileinput);
+	        		DataInputStream datainput = new DataInputStream(mybuffer);
+	        		while (datainput.available() != 0) {
+	        			System.out.println(datainput.readLine());
+	        		}
+	        		fileinput.close();
+	        		mybuffer.close();
+	        		datainput.close();
+	        	} catch (FileNotFoundException e) {
+	        	} catch (IOException e) {	
+	        	}
+	        	//System.out.println(fileEntry.getName());
 	        }
 		}		
 	}
@@ -36,7 +47,7 @@ public class InputReader {
 	    }
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		InputReader ir = new InputReader();
 		ir.readDatabase();
 	}
