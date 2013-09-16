@@ -52,10 +52,10 @@ public class InputReader {
 	        					recordPublishDate = true;
 	        				} else {
 	        					// if line does not contain unneccessary information, record it in keywords field
-	        					if (keywords.length()!=0) {
+	        					if (keywords.length()==0) {
 	        						keywords = line;
 	        					} else {
-	        						keywords = " " + line; 
+	        						keywords += " " + line; 
 	        					}
 	        				}
 	        			} else {
@@ -83,8 +83,8 @@ public class InputReader {
 		
 		for (int i = 0; i<database.size(); i++) {
 			System.out.printf("%d %s\n", i, database.get(i).getName());
-			System.out.printf("%s\n\n", database.get(i).getPublishDate());
-			//System.out.printf("%s\n\n", database.get(i).getKeywords());
+			System.out.printf("%s\n", database.get(i).getPublishDate());
+			System.out.printf("%s\n\n", database.get(i).getKeywords());
 		}
 		return database;
 	}
