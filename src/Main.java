@@ -14,8 +14,8 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.search.ScoreDoc;
 
 public class Main {
-	public Vector<Book> database;
-	public Vector<String> queries;
+	public static Vector<Book> database;
+	public static Vector<String> queries;
 	/** Creates a new instance of Main */
 	public Main() {
 		database = new Vector<Book>();
@@ -31,18 +31,19 @@ public class Main {
 		try {
 			// read data from html files
 			InputReader ir = new InputReader();
-			//main.database = ir.readDatabase();
-			main.queries = ir.readQuery();
+			
+			if (database.size()==0)
+				database = ir.readDatabase();
+			if (queries.size()==0)
+				queries = ir.readQuery();
 			
 			// build a lucene index
 			
-			/*System.out.println("rebuildIndexes");
+			System.out.println("rebuildIndexes");
 			Indexer indexer = new Indexer();
-			indexer.rebuildIndexes();
-			System.out.println("rebuildIndexes done");*/
+			indexer.rebuildIndexes(database);
+			System.out.println("rebuildIndexes done");
 
-			// read query from txt files
-			
 			// loop
 			// perform search
 			// and retrieve the result
