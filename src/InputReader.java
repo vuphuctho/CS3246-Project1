@@ -3,6 +3,7 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class InputReader {
 	final static File data = new File("data/data_project1");
@@ -27,54 +28,64 @@ public class InputReader {
 	        		DataInputStream datainput = new DataInputStream(mybuffer);
 	        		
 	        		boolean recordName = false;
-        			boolean recordDescription = false;
         			boolean recordPublishDate = false;
-        			boolean recordAuthors = false;
-        			boolean recordKeywords = false;
         			
         			String name = "";
-	        		String description = ""; 
+	        		String keywords = ""; 
 	        		String publish_date = "";
 	        		
 	        		while (datainput.available() != 0) {
 	        			String line = datainput.readLine();
 	        			line = SearchEngine.backendIndexing(line);
 	        			
-	        			
-	        			
-	        			/*if (!line.equals("")) {
-	        				// read book's title
+	        			if (line.length()!=0) {
 	        				if (!recordName) {
-	        					recordName = true;
-	        					name = line;
-	        				} else if (!recordDescription && !line.substring(0, 3).equals("cacm")) {
-	        					if (description.length()==0) {
-	        						description = line;
+	        					// record name of book
+	        					if (name.length()==0) {
+	        						name = line;
 	        					} else {
-	        						description += " " + line;
+	        						name += " " + line;
 	        					}
-	        				} else if (line.substring(0, 3).equals("cacm")) {
-	        					recordDescription = true;
-	        					recordPublishDate = true;
+	        				} else if (recordName && !recordPublishDate 
+	        						&& line.length() > 3 && line.substring(0,4).equals("cacm")) {
 	        					publish_date = line;
-	        				} else if (recordPulishDate && !recordAuthors && !line.equals("")) {
-	        					
+	        					recordPublishDate = true;
+	        				} else {
+	        					// if line does not contain unneccessary information, record it in keywords field
+	        					if (keywords.length()!=0) {
+	        						keywords = line;
+	        					} else {
+	        						keywords = " " + line; 
+	        					}
 	        				}
-	        			}*/
-	        			
-	        			if (line.length()>0) {
-	        				System.out.println(line);	
+	        			} else {
+	        				// stop recording name of book
+	        				if (!name.equals("") && !recordName) {
+	        					recordName = true;
+	        				}
 	        			}
+	        			
+	        			/*if (line.length()>0) {
+	        				System.out.println(line);	
+	        			}*/
 	        		}
+	        		B++;
+	        		database.add(new Book(name, publish_date, keywords));
 	        		fileinput.close();
 	        		mybuffer.close();
 	        		datainput.close();
 	        	} catch (FileNotFoundException e) {
 	        	} catch (IOException e) {	
 	        	}
-	        	B++;
+	        	
 	        }
-		}		
+		}	
+		
+		for (int i = 0; i<database.size(); i++) {
+			System.out.printf("%d %s\n", i, database.get(i).getName());
+			System.out.printf("%s\n\n", database.get(i).getPublishDate());
+			//System.out.printf("%s\n\n", database.get(i).getKeywords());
+		}
 		return database;
 	}
 	
@@ -134,8 +145,8 @@ public class InputReader {
 	
 	public static void main(String[] args) throws IOException {
 		InputReader ir = new InputReader();
-		//ir.readDatabase();
-		ir.readQuery();
+		ir.readDatabase();
+		//ir.readQuery();
 		
 		// testing
 		//String output = SearchEngine.backendIndexing(ir.readDatabase());

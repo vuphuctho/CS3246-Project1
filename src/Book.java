@@ -1,7 +1,6 @@
 
 public class Book {
 	
-	
 	private String name;
 	private String publish_date;
 	//private String[] authors; //not compulsory
