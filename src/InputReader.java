@@ -15,6 +15,8 @@ public class InputReader {
 	@SuppressWarnings("deprecation")
 	public Vector<Book> readDatabase() {
 		Vector<Book> database = new Vector<Book>();
+		
+		int B = 0; // number of books recorded
 		for (final File fileEntry :data.listFiles()) {
 			if (fileEntry.isDirectory()) {
 	            listFilesForFolder(fileEntry);
@@ -23,8 +25,46 @@ public class InputReader {
 	        		FileInputStream fileinput = new FileInputStream(fileEntry);
 	        		BufferedInputStream mybuffer = new BufferedInputStream(fileinput);
 	        		DataInputStream datainput = new DataInputStream(mybuffer);
+	        		
+	        		boolean recordName = false;
+        			boolean recordDescription = false;
+        			boolean recordPublishDate = false;
+        			boolean recordAuthors = false;
+        			boolean recordKeywords = false;
+        			
+        			String name = "";
+	        		String description = ""; 
+	        		String publish_date = "";
+	        		
 	        		while (datainput.available() != 0) {
-	        			System.out.println(SearchEngine.backendIndexing(datainput.readLine()));	
+	        			String line = datainput.readLine();
+	        			line = SearchEngine.backendIndexing(line);
+	        			
+	        			
+	        			
+	        			/*if (!line.equals("")) {
+	        				// read book's title
+	        				if (!recordName) {
+	        					recordName = true;
+	        					name = line;
+	        				} else if (!recordDescription && !line.substring(0, 3).equals("cacm")) {
+	        					if (description.length()==0) {
+	        						description = line;
+	        					} else {
+	        						description += " " + line;
+	        					}
+	        				} else if (line.substring(0, 3).equals("cacm")) {
+	        					recordDescription = true;
+	        					recordPublishDate = true;
+	        					publish_date = line;
+	        				} else if (recordPulishDate && !recordAuthors && !line.equals("")) {
+	        					
+	        				}
+	        			}*/
+	        			
+	        			if (line.length()>0) {
+	        				System.out.println(line);	
+	        			}
 	        		}
 	        		fileinput.close();
 	        		mybuffer.close();
@@ -32,6 +72,7 @@ public class InputReader {
 	        	} catch (FileNotFoundException e) {
 	        	} catch (IOException e) {	
 	        	}
+	        	B++;
 	        }
 		}		
 		return database;
@@ -63,12 +104,14 @@ public class InputReader {
         				} else {
         					queries.set(Q-1, queries.get(Q-1) + " " + line);
         				}
-        				System.out.printf("%s %d \n", line, Q);
         			}
         		}
 			} catch (IOException e) {
 			}
 		} 
+		for (String query : queries) {
+			System.out.println(query);
+		}
 		return queries;
 	}
 	
