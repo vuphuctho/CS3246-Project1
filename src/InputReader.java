@@ -81,11 +81,11 @@ public class InputReader {
 	        }
 		}	
 		
-		for (int i = 0; i<database.size(); i++) {
+		/*for (int i = 0; i<database.size(); i++) {
 			System.out.printf("%d %s\n", i, database.get(i).getName());
 			System.out.printf("%s\n", database.get(i).getPublishDate());
 			System.out.printf("%s\n\n", database.get(i).getKeywords());
-		}
+		}*/
 		return database;
 	}
 	
@@ -120,9 +120,9 @@ public class InputReader {
 			} catch (IOException e) {
 			}
 		} 
-		for (String query : queries) {
+		/*for (String query : queries) {
 			System.out.println(query);
-		}
+		}*/
 		return queries;
 	}
 	

@@ -58,7 +58,7 @@ public class Indexer {
     
     public void indexBook(int index, Book book) throws IOException {
 
-        System.out.println("Indexing book: " + book);
+        System.out.println("Indexing book: " + book.getName());
         indexWriter = getIndexWriter(false);
         Document doc = new Document();
         // need to modify format from hotel's to book's

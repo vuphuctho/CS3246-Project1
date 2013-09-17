@@ -32,10 +32,14 @@ public class Main {
 			// read data from html files
 			InputReader ir = new InputReader();
 			
-			if (database.size()==0)
+			if (database.size()==0) {
+				System.out.println("Read database");
 				database = ir.readDatabase();
-			if (queries.size()==0)
+			}
+			if (queries.size()==0) {
+				System.out.println("Read queries");
 				queries = ir.readQuery();
+			}
 			
 			// build a lucene index
 			
@@ -48,9 +52,9 @@ public class Main {
 			// perform search
 			// and retrieve the result
 			
-			/*System.out.println("performSearch");
+			System.out.println("performSearch");
 			SearchEngine instance = new SearchEngine();
-			ScoreDoc[] hits = instance.performSearch("Dame museum", 10);
+			ScoreDoc[] hits = instance.performSearch(queries.get(0), 10);
 
 			System.out.println("Results found: " + hits.length);
 			for (int i = 0; i < hits.length; i++) {
@@ -60,11 +64,11 @@ public class Main {
 																	// retrieves
 																	// the
 
-				System.out.println(doc.get("name") + " " + doc.get("city")
+				System.out.println(doc.get("name")/* + " " + doc.get("city")*/
 						+ " (" + hit.score + ")");
 
 			}
-			System.out.println("performSearch done");*/
+			System.out.println("performSearch done");
 		} catch (Exception e) {
 			System.out.println("Exception caught.\n");
 			System.out.println(e.toString());
