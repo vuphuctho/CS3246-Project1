@@ -64,7 +64,7 @@ public class Main {
 																	// retrieves
 																	// the
 
-				System.out.println(doc.get("name")/* + " " + doc.get("city")*/
+				System.out.println(doc.get("id") + " " + doc.get("name")/* + " " + doc.get("city")*/
 						+ " (" + hit.score + ")");
 
 			}
