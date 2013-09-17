@@ -57,17 +57,24 @@ public class Main {
 			ScoreDoc[] hits = instance.performSearch(queries.get(0), 20);
 
 			System.out.println("Results found: " + hits.length);
-			for (int i = 0; i < hits.length; i++) {
+			
+			double max_score = 0;
+			for (ScoreDoc hit : hits) {
+				max_score = ((max_score > hit.score)? max_score : hit.score);
+			}
+			
+			// normalize score
+			for (int i=0; i< hits.length; i++) {
 				ScoreDoc hit = hits[i];
 				// Document doc = hit.doc();
 				Document doc = instance.searcher.doc(hits[i].doc); // This
 																	// retrieves
 																	// the
-
-				System.out.println(doc.get("id") + " " + doc.get("book_id")/* + " " + doc.get("city")*/
-						+ " (" + hit.score + ")");
-
+				
+				System.out.println(doc.get("id") + " " + doc.get("book_id")
+						+ " (" + hit.score/max_score + ")");
 			}
+			
 			System.out.println("performSearch done");
 		} catch (Exception e) {
 			System.out.println("Exception caught.\n");
