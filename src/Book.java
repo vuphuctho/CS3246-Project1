@@ -3,6 +3,7 @@ import java.util.regex.Pattern;
 
 public class Book {
 	
+	private String book_id;
 	private String name;
 	private String publish_date;
 	//private String[] authors; //not compulsory
@@ -10,16 +11,22 @@ public class Book {
 	private String keywords; //not compulsory
 	
 	public Book() {
+		this.book_id = "";
 		this.name = "";
 		this.publish_date = "";
 		this.keywords = "";
 	}
 	
-	public Book(String _name, String _publish_date, String keywords) {
+	public Book(String _book_id, String _name, String _publish_date, String keywords) {
+		this.book_id = _book_id;
 		this.name = _name;
 		this.publish_date = _publish_date;
 		this.keywords = keywords;
 		removeNumber(keywords);
+	}
+	
+	public String getBookId() {
+		return book_id;
 	}
 	
 	public String getName() {

@@ -22,6 +22,12 @@ public class InputReader {
 			if (fileEntry.isDirectory()) {
 	            listFilesForFolder(fileEntry);
 	        } else {
+	        	String fileName = fileEntry.getName();
+	        	int pos = fileName.lastIndexOf(".");
+	        	if (pos>0) {
+	        		fileName = fileName.substring(0, pos);
+	        	}
+	        	// System.out.println(fileName);
 	        	try {
 	        		FileInputStream fileinput = new FileInputStream(fileEntry);
 	        		BufferedInputStream mybuffer = new BufferedInputStream(fileinput);
@@ -70,7 +76,7 @@ public class InputReader {
 	        			}*/
 	        		}
 	        		B++;
-	        		database.add(new Book(name, publish_date, keywords));
+	        		database.add(new Book(fileName, name, publish_date, keywords));
 	        		fileinput.close();
 	        		mybuffer.close();
 	        		datainput.close();

@@ -58,11 +58,12 @@ public class Indexer {
     
     public void indexBook(int index, Book book) throws IOException {
 
-        System.out.println("Indexing book: " + book.getName());
+        System.out.println("Indexing book: " + book.getBookId());
         indexWriter = getIndexWriter(false);
         Document doc = new Document();
         // need to modify format from hotel's to book's
         doc.add(new Field("id",String.valueOf(index), Field.Store.YES, Field.Index.NO));
+        doc.add(new Field("book_id", book.getBookId(), Field.Store.YES, Field.Index.ANALYZED));
         doc.add(new Field("name", book.getName(), Field.Store.YES, Field.Index.ANALYZED));
         doc.add(new Field("publish_date", book.getPublishDate(), Field.Store.YES, Field.Index.NOT_ANALYZED));
         doc.add(new Field("keywords", book.getKeywords(), Field.Store.YES, Field.Index.ANALYZED));

@@ -54,7 +54,7 @@ public class Main {
 			
 			System.out.println("performSearch");
 			SearchEngine instance = new SearchEngine();
-			ScoreDoc[] hits = instance.performSearch(queries.get(0), 10);
+			ScoreDoc[] hits = instance.performSearch(queries.get(0), 20);
 
 			System.out.println("Results found: " + hits.length);
 			for (int i = 0; i < hits.length; i++) {
@@ -64,7 +64,7 @@ public class Main {
 																	// retrieves
 																	// the
 
-				System.out.println(doc.get("id") + " " + doc.get("name")/* + " " + doc.get("city")*/
+				System.out.println(doc.get("id") + " " + doc.get("book_id")/* + " " + doc.get("city")*/
 						+ " (" + hit.score + ")");
 
 			}
