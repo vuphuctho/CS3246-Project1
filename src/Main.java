@@ -72,7 +72,7 @@ public class Main {
 	public static void startRebuildIndexes() {
 		File docDir = new File("index-directory");
 
-        if (docDir.exists()) {
+        if (!docDir.exists()) {
 			System.out.println("rebuildIndexes");
 			try {
 				indexer.rebuildIndexes(database);
@@ -98,12 +98,12 @@ public class Main {
 		SearchEngine instance = new SearchEngine();
 		ScoreDoc[] hits = null;
 		if (querry_id == 0) {
-			System.out.print("Please key in new querry: ");
+			System.out.print("Please key in new query: ");
 			String new_querry;
 			scan.nextLine();
 			new_querry = scan.nextLine();
 			System.out.print(new_querry);
-			new_querry = SearchEngine.backendIndexing(new_querry);
+			new_querry = BackendIndexing.backendIndexing(new_querry);
 			hits = instance.performSearch(new_querry, 20);
 
 		} else if (querry_id > 0) {

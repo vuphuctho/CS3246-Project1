@@ -40,7 +40,7 @@ public class InputReader {
 	        		
 	        		while (datainput.available() != 0) {
 	        			String line = datainput.readLine();
-	        			line = SearchEngine.backendIndexing(line);
+	        			line = BackendIndexing.backendIndexing(line);
 	        			
 	        			if (line.length()!=0) {
 	        				if (!recordName) {
@@ -104,7 +104,7 @@ public class InputReader {
         		int Q = 0; // number of queries
         		while (datainput.available()!= 0) {
         			String line = datainput.readLine();
-        			line = SearchEngine.backendIndexing(line);
+        			line = BackendIndexing.backendIndexing(line);
         			line = line.replaceAll("(?m)^[ \t]*\r?\n", "");
         			
         			// recognize query syntax and blank line
