@@ -14,10 +14,7 @@ import java.util.Vector;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Document;
-<<<<<<< HEAD
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-=======
->>>>>>> 6dd9bdc8219b2cc61e38d9a9ef59566eb109ddb8
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.FSDirectory;
