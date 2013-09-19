@@ -1,5 +1,3 @@
-
-
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -8,6 +6,7 @@ import java.util.regex.Pattern;
 public class InputReader {
 	final static File data = new File("data/data_project1");
 	final static File query = new File("data/CS3246Project1_query.txt");
+	final static File relevance = new File("data/CS3246Project1_relevance.txt");
 	//final static URL database = new URL("https://www.dropbox.com/sh/asngphsih4x5xrm/nebZcre8rF");
 	
 	public InputReader() {		
@@ -133,6 +132,40 @@ public class InputReader {
 		return queries;
 	}
 	
+	public Vector<Vector<String>> readRelevance() throws FileNotFoundException {
+		Vector<Vector<String>> relevances = new Vector<Vector<String>>();
+	
+		if (relevance.isFile()) {
+			FileInputStream fileinput = new FileInputStream(relevance);
+    		BufferedInputStream mybuffer = new BufferedInputStream(fileinput);
+    		DataInputStream datainput = new DataInputStream(mybuffer);
+    		try {
+    			int q=0; // no of questions 
+				while (datainput.available()!= 0) {
+					String[] words = datainput.readLine().split("\\s+");
+					String query = words[0].substring(1);
+					if (Integer.parseInt(query) > q) {
+						q++;
+						relevances.add(new Vector<String>());
+					}
+					relevances.get(q-1).add(words[1]);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		for (int i=0; i< relevances.size(); i++) {
+			System.out.println("Question " + i );
+			for (int j=0; j< relevances.get(i).size(); j++) {
+				System.out.println("	" + relevances.get(i).get(j));
+			}
+		}
+		
+		return relevances;
+	}
+	
 	private String removeQuerySyntax(String line) {
 		if (line.length()<=3) {
 			line = "";
@@ -152,9 +185,9 @@ public class InputReader {
 	
 	public static void main(String[] args) throws IOException {
 		InputReader ir = new InputReader();
-		ir.readDatabase();
+		//ir.readDatabase();
 		//ir.readQuery();
-		
+		ir.readRelevance();
 		// testing
 		//String output = SearchEngine.backendIndexing(ir.readDatabase());
 	}

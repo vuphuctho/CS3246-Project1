@@ -13,8 +13,6 @@ import java.util.Vector;
 
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Document;
-import lucene.demo.business.Hotel;
-import lucene.demo.business.HotelDatabase;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;

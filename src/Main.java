@@ -10,7 +10,6 @@
 import java.io.IOException;
 import java.util.Vector;
 
-import lucene.demo.search.*;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.search.ScoreDoc;
