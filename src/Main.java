@@ -20,10 +20,10 @@ public class Main {
 	public static Vector<Vector<String>> relevances;
 	
 	public static void printResult(SearchEngine instance, ScoreDoc[] hits, boolean isNormalized)
-							throws CorruptIndexException, IOException {
+			throws CorruptIndexException, IOException {
 		// Normalized value
 		double n = 1;
-		
+
 		if (isNormalized) {
 			for (ScoreDoc hit : hits) {
 				n = ((n > hit.score)? n : hit.score);
@@ -33,11 +33,11 @@ public class Main {
 			ScoreDoc hit = hits[i];
 			// Document doc = hit.doc();
 			Document doc = instance.searcher.doc(hits[i].doc); // This
-																// retrieves
-																// the
-			
-			System.out.println(doc.get("id") + " " + doc.get("book_id")
-					+ " (" + hit.score/n + ")");
+												// retrieves
+												// the
+
+			System.out.println((i + 1) + doc.get("id") + " " + doc.get("book_id")
+					+ " (" + hit.score/n + ") " + RelevanceFeedback.isRelevant(doc.get("book_id"), relevances.get(0)));
 		}
 	}
 	
