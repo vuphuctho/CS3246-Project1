@@ -153,12 +153,12 @@ public class InputReader {
 			}
 		}
 		
-		for (int i=0; i< relevances.size(); i++) {
+		/*for (int i=0; i< relevances.size(); i++) {
 			System.out.println("Question " + i );
 			for (int j=0; j< relevances.get(i).size(); j++) {
 				System.out.println("	" + relevances.get(i).get(j));
 			}
-		}
+		}*/
 		
 		return relevances;
 	}

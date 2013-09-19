@@ -17,6 +17,7 @@ import org.apache.lucene.search.ScoreDoc;
 public class Main {
 	public static Vector<Book> database;
 	public static Vector<String> queries;
+	public static Vector<Vector<String>> relevances;
 	
 	private static void printResult(SearchEngine instance, ScoreDoc[] hits, boolean isNormalized)
 							throws CorruptIndexException, IOException {
@@ -36,7 +37,7 @@ public class Main {
 																// the
 			
 			System.out.println(doc.get("id") + " " + doc.get("book_id")
-					+ " (" + hit.score/n + ")");
+					+ " (" + hit.score/n + ") " + RelevanceFeedback.isRelevant(doc.get("book_id"), relevances.get(0)));
 		}
 	}
 	
@@ -44,6 +45,7 @@ public class Main {
 	public Main() {
 		database = new Vector<Book>();
 		queries = new Vector<String>();
+		relevances = new Vector<Vector<String>>();
 	}
 
 	/**
@@ -64,6 +66,10 @@ public class Main {
 				System.out.println("Read queries");
 				queries = ir.readQuery();
 			}
+			if (relevances.size()==0) {
+				System.out.println("Read relevances");
+				relevances = ir.readRelevance();
+			}
 			
 			// build a lucene index
 			
@@ -83,13 +89,16 @@ public class Main {
 			System.out.println("Results found: " + hits.length);
 			
 			printResult(instance, hits, false);
-			
+
 			System.out.println("performSearch done");
+		
+			// receive relevances feedback
+			// RelevanceFeedback.getRelevance(instance, 0, hits, relevances.get(0));
 		} catch (Exception e) {
 			System.out.println("Exception caught.\n");
 			System.out.println(e.toString());
 		}
-		// receive relevances feedback
+
 	}
 
 }
