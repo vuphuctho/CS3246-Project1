@@ -1,10 +1,12 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Vector;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -120,32 +122,6 @@ public class SearchEngine {
 		return scoreDocs;
 	}
 	
-	public static void main (String[] args) {
-		//for testing only
-		Vector<Book> database = new Vector<Book>();
-		Vector<String> queries = new Vector<String>();
-		InputReader ir = new InputReader();
-
-		if (database.size()==0) {
-			System.out.println("Read database");
-			database = ir.readDatabase();
-		}
-		if (queries.size()==0) {
-			System.out.println("Read queries");
-			queries = ir.readQuery();
-		}
-		try {
-			System.out.println("performSearch");
-			SearchEngine instance;
-			instance = new SearchEngine();
-			ScoreDoc[] hits = instance.performSearch(queries.get(0), 20);
+	public static void main (String[] args) {}
 	
-			System.out.println("Results found: " + hits.length);
-	
-			Main.printResult(instance, hits, false);
-		} catch (IOException e) {} catch (Exception e) {}
-
-		System.out.println("performSearch done");
-
-	}
 }

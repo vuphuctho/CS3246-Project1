@@ -165,13 +165,6 @@ public class InputReader {
 		return relevances;
 	}
 	
-	private String removeQuerySyntax(String line) {
-		if (line.length()<=3) {
-			line = "";
-		}
-		return line;
-	}
-	
 	public void listFilesForFolder(final File folder) {
 	    for (final File fileEntry : folder.listFiles()) {
 	        if (fileEntry.isDirectory()) {
