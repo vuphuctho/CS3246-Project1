@@ -39,8 +39,8 @@ public class Main {
 																// retrieves
 																// the
 			
-			System.out.println((i + 1) + doc.get("id") + " " + doc.get("book_id")
-					+ " (" + hit.score/n + ") " + RelevanceFeedback.isRelevant(doc.get("book_id"), relevances.get(0)));
+			System.out.println(doc.get("id") + " " + doc.get("book_id")
+					+ " (" + hit.score/n + ")");
 		}
 	}
 	
@@ -99,6 +99,7 @@ public class Main {
 				System.out.println(e.toString());
 			}
 		}
+
 			// loop
 			// perform search
 			// and retrieve the result

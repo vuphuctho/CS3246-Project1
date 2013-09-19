@@ -14,7 +14,6 @@ import java.util.Vector;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.FSDirectory;
@@ -61,6 +60,7 @@ public class Indexer {
         indexWriter = getIndexWriter(false);
         Document doc = new Document();
         // need to modify format from hotel's to book's
+<<<<<<< HEAD
 
         Field title_field = new Field("title", book.getName(), Field.Store.YES, Field.Index.ANALYZED);
         title_field.setBoost(2f);
@@ -69,6 +69,11 @@ public class Indexer {
         doc.add(new Field("book_id", book.getBookId(), Field.Store.YES, Field.Index.ANALYZED));
         doc.add(new Field("name", book.getName(), Field.Store.YES, Field.Index.ANALYZED));
         doc.add(title_field);
+=======
+        doc.add(new Field("id",String.valueOf(index), Field.Store.YES, Field.Index.NO));
+        doc.add(new Field("book_id", book.getBookId(), Field.Store.YES, Field.Index.ANALYZED));
+        doc.add(new Field("name", book.getTitle(), Field.Store.YES, Field.Index.ANALYZED));
+>>>>>>> Duong
         doc.add(new Field("publish_date", book.getPublishDate(), Field.Store.YES, Field.Index.NOT_ANALYZED));
         doc.add(new Field("keywords", book.getKeywords(), Field.Store.YES, Field.Index.ANALYZED));
         String fullSearchableText = book.getName() + " " + book.getPublishDate() + " " + book.getKeywords();

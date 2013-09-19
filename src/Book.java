@@ -20,7 +20,6 @@ public class Book {
 	public Book(String _book_id, String _title, String _publish_date, String keywords) {
 		this.book_id = _book_id;
 		this.title = _title;
-		this.title = _title;
 		this.publish_date = _publish_date;
 		this.keywords = keywords;
 		removeNumber(keywords);
@@ -41,10 +40,10 @@ public class Book {
 		return keywords;
 	}
 	
-	public void setTitle(String _title) {
+	public void setName(String _title) {
 		this.title = _title;
 	}
-
+	
 	public void setPublishDate (String _publish_date) {
 		this.publish_date = _publish_date;
 	}
