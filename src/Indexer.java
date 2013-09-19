@@ -62,16 +62,16 @@ public class Indexer {
         Document doc = new Document();
         // need to modify format from hotel's to book's
 
-        Field title_field = new Field("title", book.getTitle(), Field.Store.YES, Field.Index.ANALYZED);
+        Field title_field = new Field("title", book.getName(), Field.Store.YES, Field.Index.ANALYZED);
         title_field.setBoost(2f);
         
         doc.add(new Field("id",String.valueOf(index), Field.Store.YES, Field.Index.NO));
         doc.add(new Field("book_id", book.getBookId(), Field.Store.YES, Field.Index.ANALYZED));
-        doc.add(new Field("name", book.getTitle(), Field.Store.YES, Field.Index.ANALYZED));
+        doc.add(new Field("name", book.getName(), Field.Store.YES, Field.Index.ANALYZED));
         doc.add(title_field);
         doc.add(new Field("publish_date", book.getPublishDate(), Field.Store.YES, Field.Index.NOT_ANALYZED));
         doc.add(new Field("keywords", book.getKeywords(), Field.Store.YES, Field.Index.ANALYZED));
-        String fullSearchableText = book.getTitle() + " " + book.getPublishDate() + " " + book.getKeywords();
+        String fullSearchableText = book.getName() + " " + book.getPublishDate() + " " + book.getKeywords();
         doc.add(new Field("content", fullSearchableText, Field.Store.NO, Field.Index.ANALYZED));
         indexWriter.addDocument(doc);
     }   
