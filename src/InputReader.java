@@ -76,6 +76,7 @@ public class InputReader {
 	        			}*/
 	        		}
 	        		B++;
+	        		//System.out.println(name + " "  + publish_date);
 	        		database.add(new Book(fileName, name, publish_date, keywords));
 	        		fileinput.close();
 	        		mybuffer.close();

@@ -7,15 +7,40 @@
 
 
 
+import java.io.IOException;
 import java.util.Vector;
 
 import lucene.demo.search.*;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.search.ScoreDoc;
 
 public class Main {
 	public static Vector<Book> database;
 	public static Vector<String> queries;
+	
+	private static void printResult(SearchEngine instance, ScoreDoc[] hits, boolean isNormalized)
+							throws CorruptIndexException, IOException {
+		// normalizied value
+		double n = 1;
+		
+		if (isNormalized) {
+			for (ScoreDoc hit : hits) {
+				n = ((n > hit.score)? n : hit.score);
+			}
+		}
+		for (int i=0; i< hits.length; i++) {
+			ScoreDoc hit = hits[i];
+			// Document doc = hit.doc();
+			Document doc = instance.searcher.doc(hits[i].doc); // This
+																// retrieves
+																// the
+			
+			System.out.println(doc.get("id") + " " + doc.get("book_id")
+					+ " (" + hit.score/n + ")");
+		}
+	}
+	
 	/** Creates a new instance of Main */
 	public Main() {
 		database = new Vector<Book>();
@@ -58,22 +83,7 @@ public class Main {
 
 			System.out.println("Results found: " + hits.length);
 			
-			double max_score = 0;
-			for (ScoreDoc hit : hits) {
-				max_score = ((max_score > hit.score)? max_score : hit.score);
-			}
-			
-			// normalize score
-			for (int i=0; i< hits.length; i++) {
-				ScoreDoc hit = hits[i];
-				// Document doc = hit.doc();
-				Document doc = instance.searcher.doc(hits[i].doc); // This
-																	// retrieves
-																	// the
-				
-				System.out.println(doc.get("id") + " " + doc.get("book_id")
-						+ " (" + hit.score/max_score + ")");
-			}
+			printResult(instance, hits, false);
 			
 			System.out.println("performSearch done");
 		} catch (Exception e) {
