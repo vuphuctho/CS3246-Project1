@@ -108,10 +108,7 @@ public class SearchEngine {
 	public static void main (String[] args) {
 		try {
 			SearchEngine.loadStopWordList();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (IOException e) {}
 		String input = "The In I am terminated";
 		System.out.print(SearchEngine.backendIndexing(input));
 		

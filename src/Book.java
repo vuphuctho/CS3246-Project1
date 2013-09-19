@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 public class Book {
 	
 	private String book_id;
-	private String name;
+	private String title;
 	private String publish_date;
 	//private String[] authors; //not compulsory
 	//private String description; //not compulsory
@@ -12,14 +12,14 @@ public class Book {
 	
 	public Book() {
 		this.book_id = "";
-		this.name = "";
+		this.title = "";
 		this.publish_date = "";
 		this.keywords = "";
 	}
 	
 	public Book(String _book_id, String _name, String _publish_date, String keywords) {
 		this.book_id = _book_id;
-		this.name = _name;
+		this.title = _name;
 		this.publish_date = _publish_date;
 		this.keywords = keywords;
 		removeNumber(keywords);
@@ -30,7 +30,7 @@ public class Book {
 	}
 	
 	public String getName() {
-		return name;
+		return title;
 	}
 	public String getPublishDate() {
 		return publish_date;
@@ -41,7 +41,7 @@ public class Book {
 	}
 	
 	public void setName(String name) {
-		this.name = name;
+		this.title = name;
 	}
 	
 	public void setPublishDate (String publish_date) {

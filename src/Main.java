@@ -20,7 +20,7 @@ public class Main {
 	
 	private static void printResult(SearchEngine instance, ScoreDoc[] hits, boolean isNormalized)
 							throws CorruptIndexException, IOException {
-		// normalizied value
+		// Normalized value
 		double n = 1;
 		
 		if (isNormalized) {

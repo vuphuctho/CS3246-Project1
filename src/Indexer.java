@@ -11,9 +11,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Document;
+<<<<<<< HEAD
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+=======
+>>>>>>> 6dd9bdc8219b2cc61e38d9a9ef59566eb109ddb8
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.FSDirectory;
@@ -40,7 +44,7 @@ public class Indexer {
         	
         	FSDirectory idx = FSDirectory.open(new File("index-directory"));
     		IndexWriterConfig indexWriterConfig = new IndexWriterConfig(
-    				Version.LUCENE_CURRENT, new StandardAnalyzer(Version.LUCENE_CURRENT));
+    				Version.LUCENE_36, new StandardAnalyzer(Version.LUCENE_36));
 
     		 indexWriter = new IndexWriter(idx, indexWriterConfig);
             
