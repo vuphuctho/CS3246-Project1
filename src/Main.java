@@ -37,7 +37,7 @@ public class Main {
 												// the
 
 			System.out.println((i + 1) + doc.get("id") + " " + doc.get("book_id")
-					+ " (" + hit.score/n + ") " + RelevanceFeedback.isRelevant(doc.get("book_id"), relevances.get(0)));
+					+ " (" + hit.score/n + ") " + RelevanceFeedback.isRelevant(doc.get("book_id"), relevances.get(1)));
 		}
 	}
 	
@@ -85,13 +85,12 @@ public class Main {
 			
 			System.out.println("performSearch");
 			SearchEngine instance = new SearchEngine();
-			ScoreDoc[] hits = instance.performSearch(queries.get(0), 20);
+			ScoreDoc[] hits = instance.performSearch(queries.get(1), 20);
 
 			System.out.println("Results found: " + hits.length);
 			
 			printResult(instance, hits, false);
 			
-
 			System.out.println("performSearch done");
 		
 			// receive relevances feedback

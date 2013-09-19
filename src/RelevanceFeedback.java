@@ -32,4 +32,8 @@ public class RelevanceFeedback {
 	public static boolean isRelevant(String book_id, Vector<String> relevances) {
 		return relevances.contains(book_id);
 	}
+	
+	public static void updateQuery() {
+		
+	}
 }

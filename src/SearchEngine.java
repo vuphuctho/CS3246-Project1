@@ -17,6 +17,7 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
+import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -92,18 +93,11 @@ public class SearchEngine {
 
 		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_36);
 		
-		HashMap<String,Float> boost = new HashMap<String,Float>();
-		boost.put("title", 1.3f);
-		boost.put("publish_date", 1.15f);
-		boost.put("keywords", 0.95f);
-		boost.put("content", 0.9f);
-		String[] content = new String[] {"title", "publish_date", "keywords", "content"};
+		HashMap<String,Float> boost = setBoost();
 		
-		MultiFieldQueryParser qp = new MultiFieldQueryParser(Version.LUCENE_36, content, analyzer, boost);
-		//Query q = qp.parse(Version.LUCENE_36, queryString, content, new BooleanClause.Occur[] {BooleanClause.Occur.MUST}, analyzer);
-		//Query q = qp.parse(Version.LUCENE_36, new String[] {queryString}, content, analyzer);
-		Query q = qp.parse(queryString);
-		//QueryParser(Version.LUCENE_36, "content", new StandardAnalyzer(Version.LUCENE_36)).parse(queryString);
+		String[] content = setContent();
+		
+		Query q = setQuery(analyzer, boost, content, queryString);
 		
 		TopDocs topDocs = searcher.search(q, noOfTopDocs);
 
@@ -116,8 +110,29 @@ public class SearchEngine {
 		for (int i = 0; i < scoreDocs.length; i++) {
 			Document doc = searcher.doc(scoreDocs[i].doc); // This retrieves the
 		}
-
+		
 		return scoreDocs;
+	}
+	
+	private HashMap<String,Float> setBoost() {
+		HashMap<String,Float> boost = new HashMap<String,Float>();
+		boost.put("title", 1.3f);
+		boost.put("publish_date", 1.15f);
+		boost.put("keywords", 0.95f);
+		boost.put("content", 0.9f);
+	
+		return boost;
+	}
+	
+	private String [] setContent() {
+		return new String[] {"title", "publish_date", "keywords", "content"};
+	}
+	
+	private Query setQuery(Analyzer analyzer, HashMap<String, Float> boost, 
+			String[] content, String queryString)
+					throws ParseException {
+		MultiFieldQueryParser qp = new MultiFieldQueryParser(Version.LUCENE_36, content, analyzer, boost);
+		return qp.parse(queryString);
 	}
 	
 	public static void main (String[] args) {

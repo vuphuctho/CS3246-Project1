@@ -86,9 +86,5 @@ public class Indexer {
           // Don't forget to close the index writer when done
           //
           closeIndexWriter();
-     }    
-    
-  
-    
-    
+     }
 }
