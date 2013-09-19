@@ -18,7 +18,7 @@ public class Main {
 	public static Vector<Book> database;
 	public static Vector<String> queries;
 	
-	private static void printResult(SearchEngine instance, ScoreDoc[] hits, boolean isNormalized)
+	public static void printResult(SearchEngine instance, ScoreDoc[] hits, boolean isNormalized)
 							throws CorruptIndexException, IOException {
 		// Normalized value
 		double n = 1;
