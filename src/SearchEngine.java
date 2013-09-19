@@ -31,7 +31,7 @@ public class SearchEngine {
 	private static HashSet<String> stop_word_set = new HashSet<String>();
 	
 	private static void loadStopWordList() throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader("src\\stop_words.txt"));
+		BufferedReader reader = new BufferedReader(new FileReader("src/stop_words.txt"));
 		String line = null;
 		while ((line = reader.readLine()) != null) {
 			stop_word_set.add(line);
