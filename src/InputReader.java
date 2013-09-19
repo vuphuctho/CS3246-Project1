@@ -1,9 +1,7 @@
 
 
 import java.io.*;
-import java.net.*;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class InputReader {
 	final static File data = new File("data/data_project1");
@@ -17,7 +15,6 @@ public class InputReader {
 	public Vector<Book> readDatabase() {
 		Vector<Book> database = new Vector<Book>();
 		
-		int B = 0; // number of books recorded
 		for (final File fileEntry :data.listFiles()) {
 			if (fileEntry.isDirectory()) {
 	            listFilesForFolder(fileEntry);
@@ -57,7 +54,7 @@ public class InputReader {
 	        					publish_date = line;
 	        					recordPublishDate = true;
 	        				} else {
-	        					// if line does not contain unneccessary information, record it in keywords field
+	        					// if line does not contain unnecessary information, record it in keywords field
 	        					if (keywords.length()==0) {
 	        						keywords = line;
 	        					} else {
@@ -75,7 +72,6 @@ public class InputReader {
 	        				System.out.println(line);	
 	        			}*/
 	        		}
-	        		B++;
 	        		//System.out.println(name + " "  + publish_date);
 	        		database.add(new Book(fileName, name, publish_date, keywords));
 	        		fileinput.close();
@@ -124,6 +120,7 @@ public class InputReader {
         				}
         			}
         		}
+        		datainput.close();
 			} catch (IOException e) {
 			}
 		} 
@@ -131,13 +128,6 @@ public class InputReader {
 			System.out.println(query);
 		}*/
 		return queries;
-	}
-	
-	private String removeQuerySyntax(String line) {
-		if (line.length()<=3) {
-			line = "";
-		}
-		return line;
 	}
 	
 	public void listFilesForFolder(final File folder) {

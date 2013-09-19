@@ -11,11 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.Document;
-import lucene.demo.business.Hotel;
-import lucene.demo.business.HotelDatabase;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.FSDirectory;
@@ -42,7 +40,7 @@ public class Indexer {
         	
         	FSDirectory idx = FSDirectory.open(new File("index-directory"));
     		IndexWriterConfig indexWriterConfig = new IndexWriterConfig(
-    				Version.LUCENE_CURRENT, new StandardAnalyzer(Version.LUCENE_CURRENT));
+    				Version.LUCENE_36, new StandardAnalyzer(Version.LUCENE_36));
 
     		 indexWriter = new IndexWriter(idx, indexWriterConfig);
             
