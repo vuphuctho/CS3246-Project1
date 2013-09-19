@@ -10,18 +10,20 @@ public class RelevanceFeedback {
 	public static void getRelevance(SearchEngine instance, int query, 
 			ScoreDoc[] hits, Vector<String> relevances)
 			throws CorruptIndexException, IOException {
-		int rel = 0;
-		
-		for (int i=0; i< hits.length; i++) {
-			ScoreDoc hit = hits[i];
-			// Document doc = hit.doc();
-			Document doc = instance.searcher.doc(hits[i].doc); // This
-																// retrieves
-																// the
+		if (relevances != null) {
+			int rel = 0;
 			
-			String book_id = doc.get("book_id");
-			if (relevances.contains(book_id)) {
-				rel++;
+			for (int i=0; i< hits.length; i++) {
+				ScoreDoc hit = hits[i];
+				// Document doc = hit.doc();
+				Document doc = instance.searcher.doc(hits[i].doc); // This
+																	// retrieves
+																	// the
+				
+				String book_id = doc.get("book_id");
+				if (relevances.contains(book_id)) {
+					rel++;
+				}
 			}
 		}
 		
