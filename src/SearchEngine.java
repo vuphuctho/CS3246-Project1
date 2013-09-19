@@ -92,6 +92,12 @@ public class SearchEngine {
 
 	public ScoreDoc[] performSearch(String queryString, int noOfTopDocs)
 			throws Exception {
+
+		Query query = new QueryParser(Version.LUCENE_36, "content",
+				new StandardAnalyzer(Version.LUCENE_36))
+				.parse(queryString);
+
+		TopDocs topDocs = searcher.search(query, noOfTopDocs);
 		
 		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_36);
 		
@@ -140,6 +146,10 @@ public class SearchEngine {
 		System.out.println("performSearch");
 		SearchEngine instance;
 		try {
+			SearchEngine.loadStopWordList();
+		} catch (IOException e) {}
+		String input = "The In I am terminated";
+		System.out.print(SearchEngine.backendIndexing(input));
 			instance = new SearchEngine();
 			ScoreDoc[] hits = instance.performSearch(queries.get(0), 20);
 	
