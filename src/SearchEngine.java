@@ -3,8 +3,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Vector;
 
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.PorterStemFilter;
 import org.apache.lucene.analysis.StopFilter;
 import org.apache.lucene.analysis.TokenStream;
@@ -13,10 +16,14 @@ import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.CorruptIndexException;
+import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
@@ -91,6 +98,22 @@ public class SearchEngine {
 				.parse(queryString);
 
 		TopDocs topDocs = searcher.search(query, noOfTopDocs);
+		
+		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_36);
+		
+		HashMap<String,Float> boost = new HashMap<String,Float>();
+		boost.put("title", 1.3f);
+		boost.put("publish_date", 1.15f);
+		boost.put("keywords", 0.95f);
+		boost.put("content", 0.9f);
+		String[] content = new String[] {"title", "publish_date", "keywords", "content"};
+		
+		MultiFieldQueryParser qp = new MultiFieldQueryParser(Version.LUCENE_36, content, analyzer, boost);
+		//Query q = qp.parse(Version.LUCENE_36, queryString, content, new BooleanClause.Occur[] {BooleanClause.Occur.MUST}, analyzer);
+		//Query q = qp.parse(Version.LUCENE_36, new String[] {queryString}, content, analyzer);
+		Query q = qp.parse(queryString);
+		//QueryParser(Version.LUCENE_36, "content", new StandardAnalyzer(Version.LUCENE_36)).parse(queryString);
+		TopDocs topDocs = searcher.search(q, noOfTopDocs);
 
 		// System.out.println(topDocs);
 		ScoreDoc[] scoreDocs = topDocs.scoreDocs;
@@ -106,11 +129,36 @@ public class SearchEngine {
 	}
 	
 	public static void main (String[] args) {
+		//for testing only
+		Vector<Book> database = new Vector<Book>();
+		Vector<String> queries = new Vector<String>();
+		InputReader ir = new InputReader();
+		
+		if (database.size()==0) {
+			System.out.println("Read database");
+			database = ir.readDatabase();
+		}
+		if (queries.size()==0) {
+			System.out.println("Read queries");
+			queries = ir.readQuery();
+		}
+		
+		System.out.println("performSearch");
+		SearchEngine instance;
 		try {
 			SearchEngine.loadStopWordList();
 		} catch (IOException e) {}
 		String input = "The In I am terminated";
 		System.out.print(SearchEngine.backendIndexing(input));
+			instance = new SearchEngine();
+			ScoreDoc[] hits = instance.performSearch(queries.get(0), 20);
+	
+			System.out.println("Results found: " + hits.length);
+			
+				Main.printResult(instance, hits, false);
+		} catch (IOException e) {} catch (Exception e) {}
+		
+		System.out.println("performSearch done");
 		
 	}
 }
