@@ -19,7 +19,6 @@ public class Main {
 	public static Vector<String> queries;
 	public static Vector<Vector<String>> relevances;
 	
-	private static void printResult(SearchEngine instance, ScoreDoc[] hits, boolean isNormalized)
 	public static void printResult(SearchEngine instance, ScoreDoc[] hits, boolean isNormalized)
 							throws CorruptIndexException, IOException {
 		// Normalized value
@@ -37,8 +36,6 @@ public class Main {
 																// retrieves
 																// the
 			
-			System.out.println(doc.get("id") + " " + doc.get("book_id")
-					+ " (" + hit.score/n + ")");
 			System.out.println((i + 1) + doc.get("id") + " " + doc.get("book_id")
 					+ " (" + hit.score/n + ") " + RelevanceFeedback.isRelevant(doc.get("book_id"), relevances.get(0)));
 		}

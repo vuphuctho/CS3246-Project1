@@ -17,10 +17,9 @@ public class Book {
 		this.keywords = "";
 	}
 	
-	public Book(String _book_id, String _name, String _publish_date, String keywords) {
 	public Book(String _book_id, String _title, String _publish_date, String keywords) {
 		this.book_id = _book_id;
-		this.title = _name;
+		this.title = _title;
 		this.title = _title;
 		this.publish_date = _publish_date;
 		this.keywords = keywords;
@@ -31,7 +30,6 @@ public class Book {
 		return book_id;
 	}
 	
-	public String getName() {
 	public String getTitle() {
 		return title;
 	}
@@ -43,20 +41,14 @@ public class Book {
 		return keywords;
 	}
 	
-	public void setName(String name) {
-		this.title = name;
 	public void setTitle(String _title) {
 		this.title = _title;
 	}
-	
-	public void setPublishDate (String publish_date) {
-		this.publish_date = publish_date;
+
 	public void setPublishDate (String _publish_date) {
 		this.publish_date = _publish_date;
 	}
 	
-	public void setKeywords (String keywords) {
-		this.keywords = keywords;
 	public void setKeywords (String _keywords) {
 		this.keywords = _keywords;
 	}
